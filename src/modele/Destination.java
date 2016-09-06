@@ -17,6 +17,6 @@ public abstract class Destination implements Noeud{
     public int getValue() {
         //dans un circuit valid (pret a calculer) entreeporte est connecté
         // à une source qui fournit une valeur
-        source.getValue();
+        return source.getValue();
     }
 }

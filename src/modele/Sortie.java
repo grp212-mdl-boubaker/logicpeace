@@ -9,10 +9,10 @@ package modele;
  *
  * @author Admin
  */
-public class Sortie  implements Noeud {
+public class Sortie  extends Destination {
     private static int nombreSortie=0;
     private String nom;
-    private SortiePorte lien;
+    private Source source;
     
     public Sortie(String nom) {
         this.nom = nom;
@@ -34,13 +34,13 @@ public class Sortie  implements Noeud {
         this.nom = nom;
     }
 
-    public SortiePorte getSortiePorte() {
-        return lien;
-    }
-
-    public void addLien(Noeud sortiePorte) {
+//    public SortiePorte getSortiePorte() {
+//        return lien;
+//    }
+//peut cncter a entreecircuit ou sortieporte
+    public void connecter(Source src) {
         try{
-        this.lien = (SortiePorte)sortiePorte;
+        source = src;
         }catch(IllegalArgumentException ex){
             throw new IllegalArgumentException("faire le lien n'est pas possible.");
         }
@@ -48,7 +48,7 @@ public class Sortie  implements Noeud {
 
     @Override
     public String toString() {
-        return "Sortie{" + "nom=" + nom + ", lien=" + lien + '}';
+        return "Sortie{" + "nom=" + nom + ", lien=" + source + '}';
     }
 
     

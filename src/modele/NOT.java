@@ -5,15 +5,20 @@
  */
 package modele;
 
+import java.util.Hashtable;
+
 /**
  *
  * @author Admin
  */
-public class NOT  extends Porte{
+public class NOT  extends PorteUniEntree{
     private String signe="<NOT>";
     
     public NOT(String nom) {
         super(nom);
+        tableDeValeurs = new Hashtable();
+        tableDeValeurs.put(new Integer(0), new Integer(1));
+        tableDeValeurs.put(new Integer(1),new Integer(0));
     }
 
     @Override

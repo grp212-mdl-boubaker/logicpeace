@@ -12,13 +12,15 @@ import java.util.List;
  *
  * @author Admin
  */
-public class SortiePorte  implements Noeud {
+public class SortiePorte  extends Source {
     static int nombreSortiePorte=0;
     private String nom;
-    private List lien=new ArrayList<Sortie>();
+    Porte porte;
+    private Destination destination;
     
     public SortiePorte(String nom) {
         this.nom = nom;
+        
     }
 
     public static int getNombreSortiePorte() {
@@ -38,9 +40,9 @@ public class SortiePorte  implements Noeud {
     }
 
        //Lier
-    public void addLien(Noeud liee) {
+    public void connecter(Destination liee) {
         try {
-            lien.add((Sortie) liee);
+            destination = liee;
         } catch (IllegalArgumentException ex) {
             throw new IllegalArgumentException("faire le lien n'est pas possible.");
         }
@@ -49,6 +51,11 @@ public class SortiePorte  implements Noeud {
     @Override
     public String toString() {
         return "SortiePorte{" + "nom=" + nom + '}';
+    }
+
+    @Override
+    public int getValue() {
+        return porte.getValue();
     }
     
 }

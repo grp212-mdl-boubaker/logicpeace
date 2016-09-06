@@ -12,12 +12,13 @@ import java.util.List;
  *
  * @author Admin
  */
-public class Entree implements Noeud {
+public class Entree extends Source{
 
     private static int nombreEntree = 0;
     private String nom;
     private int valeur = 0;
     private List lien = new ArrayList<EntreePorte>();
+    private Destination destination;
     public Entree(String nom) {
         this.nom = nom;
     }
@@ -39,9 +40,9 @@ public class Entree implements Noeud {
     }
 
     //Lier
-    public void addLien(Noeud liee) {
+    public void connecter(Destination liee) {
         try {
-            lien.add((EntreePorte) liee);
+            destination = liee;
         } catch (IllegalArgumentException ex) {
             throw new IllegalArgumentException("faire le lien n'est pas possible.");
         }

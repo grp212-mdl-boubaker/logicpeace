@@ -11,9 +11,9 @@ import java.util.Hashtable;
  *
  * @author Admin
  */
-public class AND  extends Porte{
+public class AND  extends PorteDoubleEntree{
     private String signe="<AND>";
-    private Hashtable tableDeValeurs;
+    
     public AND(String nom) {
         super(nom);
         // la table pour determiner le resultat d<une operation And selon les entrees
@@ -31,15 +31,7 @@ public class AND  extends Porte{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public int getValue() {
-    EntreePorte entreePort1 = entrees[0];
-    EntreePorte entreePort2 = entrees[1];
-    int e1 = entreePort1.getValue();
-    int e2 = entreePort2.getValue();
-    Integer addresse = new Integer(e1 + e2 * 2);
-    return tableDeValeurs.get(addresse).getIntValue();
-    }
+
     
       
 }

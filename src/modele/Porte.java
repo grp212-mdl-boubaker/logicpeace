@@ -6,6 +6,7 @@
 package modele;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 /**
@@ -15,6 +16,7 @@ import java.util.List;
 public abstract class Porte implements Noeud {
 
     static int nombrePorte = 0;
+    Hashtable tableDeValeurs;
     private String nom;
     private List elements = new ArrayList<Noeud>();
     EntreePorte[] entrees;
