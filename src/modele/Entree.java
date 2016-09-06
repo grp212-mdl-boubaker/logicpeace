@@ -50,6 +50,10 @@ public class Entree implements Noeud {
     public String toString() {
         return "Entree{" + "nom=" + nom + ", lien=" + lien + '}';
     }
-
+    
+    public int getValue(){
+        return valeur;
+    }
+    public void 
     
 }
