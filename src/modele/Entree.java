@@ -16,6 +16,7 @@ public class Entree implements Noeud {
 
     private static int nombreEntree = 0;
     private String nom;
+    private int valeur = 0;
     private List lien = new ArrayList<EntreePorte>();
     public Entree(String nom) {
         this.nom = nom;
@@ -54,6 +55,8 @@ public class Entree implements Noeud {
     public int getValue(){
         return valeur;
     }
-    public void 
+    public void setValue(int v){
+        valeur = v;
+    }
     
 }

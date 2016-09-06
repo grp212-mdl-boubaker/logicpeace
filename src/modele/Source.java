@@ -7,8 +7,11 @@ package modele;
 
 /**
  *
- * @author Admin
+ * @author shahin.behrooz@gmail.com
  */
-public interface Noeud {
-    public int getValue();
+public abstract class Source {
+    private int value;
+    public int getValue(){
+        return value;
+    }
 }

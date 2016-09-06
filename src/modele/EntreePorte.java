@@ -9,11 +9,12 @@ package modele;
  *
  * @author Admin
  */
-public class EntreePorte  implements Noeud {
+public class EntreePorte  extends Destination {
     private static int nombreEntreePorte=0;
     private String nom;
-    private Entree lien;
-
+    // source connectée à cette entree
+    private Source source;
+    
     public EntreePorte(String nom) {
         this.nom = nom;
     }
@@ -34,20 +35,22 @@ public class EntreePorte  implements Noeud {
         this.nom = nom;
     }
 
-    public Entree getEntree() {
-        return lien;
-    }
+//    public Entree getEntree() {
+//        return lien;
+//    }
 
-    public void addLien(Noeud entree) {
-        try{
-        this.lien = (Entree)entree;
-        }catch(IllegalArgumentException ex){
-            throw new IllegalArgumentException("faire le lien n'est pas possible.");
-        }
-    }
-
+//    public void addLien(Noeud entree) {
+//        try{
+//        this.lien = (Entree)entree;
+//        }catch(IllegalArgumentException ex){
+//            throw new IllegalArgumentException("faire le lien n'est pas possible.");
+//        }
+//    }
+ 
     @Override
     public String toString() {
         return "EntreePorte{" + "nom=" + nom + '}';
     }
+
+
 }

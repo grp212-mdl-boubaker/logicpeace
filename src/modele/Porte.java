@@ -17,7 +17,7 @@ public abstract class Porte implements Noeud {
     static int nombrePorte = 0;
     private String nom;
     private List elements = new ArrayList<Noeud>();
-
+    EntreePorte[] entrees;
     public abstract String getSigne();
 
     public Porte(String nom) {
