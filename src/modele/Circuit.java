@@ -76,11 +76,11 @@ public class Circuit implements Noeud {
                 entreePorte1 = porte.creerEntreePorte();
                 entreePorte2 = porte.creerEntreePorte();
                 sortiePorte = porte.creerSortiePorte();
-                porte.ajouter(entreePorte1);
+                porte.ajouterEntree(entreePorte1,0);//index 0 = premier entree
                 dic.put(entreePorte1.getNom(), (Noeud) entreePorte1);
-                porte.ajouter(entreePorte2);
+                porte.ajouterEntree(entreePorte2,1);
                 dic.put(entreePorte2.getNom(), (Noeud) entreePorte2);
-                porte.ajouter(sortiePorte);
+                porte.ajouterSortie(sortiePorte);
                 dic.put(sortiePorte.getNom(), (Noeud) sortiePorte);
                 break;
             case "AND":
