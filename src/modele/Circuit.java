@@ -88,20 +88,20 @@ public class Circuit implements Noeud {
                 entreePorte1 = porte.creerEntreePorte();
                 entreePorte2 = porte.creerEntreePorte();
                 sortiePorte = porte.creerSortiePorte();
-                porte.ajouter(entreePorte1);
+                porte.ajouterEntree(entreePorte1,0);
                 dic.put(entreePorte1.getNom(), (Noeud) entreePorte1);
-                porte.ajouter(entreePorte2);
+                porte.ajouterEntree(entreePorte2,1);
                 dic.put(entreePorte2.getNom(), (Noeud) entreePorte2);
-                porte.ajouter(sortiePorte);
+                porte.ajouterSortie(sortiePorte);
                 dic.put(sortiePorte.getNom(), (Noeud) sortiePorte);
                 break;
              case "NOT":
                 porte = new NOT(nom);
                 entreePorte1 = porte.creerEntreePorte();
                 sortiePorte = porte.creerSortiePorte();
-                porte.ajouter(entreePorte1);
+                porte.ajouterEntree(entreePorte1,0);
                 dic.put(entreePorte1.getNom(), (Noeud) entreePorte1);
-                porte.ajouter(sortiePorte);
+                porte.ajouterSortie(sortiePorte);
                 dic.put(sortiePorte.getNom(), (Noeud) sortiePorte);
                 break;    
                 
@@ -149,16 +149,30 @@ public class Circuit implements Noeud {
         Noeud noeud1 = Editeur.RechercherNoeud(txtNoeud1);
         Noeud noeud2 = Editeur.RechercherNoeud(txtNoeud2);
         if (noeud1 != null && noeud2 != null) {
-            if ((noeud1 instanceof Entree) && (noeud2 instanceof EntreePorte)) {
-                ((Entree) noeud1).addLien(noeud2);
-                ((EntreePorte) noeud2).addLien(noeud1);
-
-            } else if ((noeud1 instanceof Sortie) && (noeud2 instanceof SortiePorte)) {
-                ((Sortie) noeud1).addLien(noeud2);
-                ((SortiePorte) noeud2).addLien(noeud1);
-            }
+        Destination dest = getDestination(noeud1, noeud2);
+        Source src = getSource(noeud1, noeud2);
+        if (dest == null || src == null)
+            throw new IllegalArgumentException("Les noeuds ne sont pas liables.");
+        dest.connecter(src);
         }
 
     }
+    // retourne celle qui est de type Source
+    // utility methods just for facilitate
+    private Source getSource(Noeud n,Noeud m){
+        if (n instanceof Source)
+            return (Source)n;
+        if (m instanceof Source)
+            return (Source)m;
+        return null;
+    }
+    private Destination getDestination(Noeud n,Noeud m){
+        if (n instanceof Destination)
+            return (Destination)n;
+        if (m instanceof Destination)
+            return (Destination)m;
+        return null;
+    }
+    
 
 }
