@@ -21,7 +21,8 @@ public class Circuit implements Noeud {
     private List elements = new ArrayList<Noeud>();
     private boolean modifie = false;
     static Circuit circuit;
-
+    private ArrayList<Entree> entrees = new ArrayList<Entree>();
+    private ArrayList<Sortie> sorties = new ArrayList<Sortie>();
     //Constrocteur
     public static Circuit getInstance(String nom) {
         if (circuit == null) {
@@ -52,6 +53,11 @@ public class Circuit implements Noeud {
     }
 
     public void ajouterNoeud(Noeud element) {
+        //on veut garder les entrees separement
+        if (element instanceof Entree)
+            entrees.add((Entree)element);
+        else if (element instanceof Sortie)
+            sorties.add((Sortie)element);
         elements.add(element);
     }
 
@@ -78,8 +84,10 @@ public class Circuit implements Noeud {
                 sortiePorte = porte.creerSortiePorte();
                 porte.ajouterEntree(entreePorte1,0);//index 0 = premier entree
                 dic.put(entreePorte1.getNom(), (Noeud) entreePorte1);
+                ajouterNoeud(entreePorte1);
                 porte.ajouterEntree(entreePorte2,1);
                 dic.put(entreePorte2.getNom(), (Noeud) entreePorte2);
+                ajouterNoeud(entreePorte2);
                 porte.ajouterSortie(sortiePorte);
                 dic.put(sortiePorte.getNom(), (Noeud) sortiePorte);
                 break;
@@ -90,10 +98,13 @@ public class Circuit implements Noeud {
                 sortiePorte = porte.creerSortiePorte();
                 porte.ajouterEntree(entreePorte1,0);
                 dic.put(entreePorte1.getNom(), (Noeud) entreePorte1);
+                //ajouterNoeud(entreePorte1);
                 porte.ajouterEntree(entreePorte2,1);
                 dic.put(entreePorte2.getNom(), (Noeud) entreePorte2);
+                //ajouterNoeud(entreePorte2);
                 porte.ajouterSortie(sortiePorte);
                 dic.put(sortiePorte.getNom(), (Noeud) sortiePorte);
+                //ajouterNoeud(sortiePorte);
                 break;
              case "NOT":
                 porte = new NOT(nom);
@@ -101,8 +112,10 @@ public class Circuit implements Noeud {
                 sortiePorte = porte.creerSortiePorte();
                 porte.ajouterEntree(entreePorte1,0);
                 dic.put(entreePorte1.getNom(), (Noeud) entreePorte1);
+                ajouterNoeud(entreePorte1);
                 porte.ajouterSortie(sortiePorte);
                 dic.put(sortiePorte.getNom(), (Noeud) sortiePorte);
+                ajouterNoeud(sortiePorte);
                 break;    
                 
         }
@@ -153,7 +166,7 @@ public class Circuit implements Noeud {
         Source src = getSource(noeud1, noeud2);
         if (dest == null || src == null)
             throw new IllegalArgumentException("Les noeuds ne sont pas liables.");
-        dest.connecter(src);
+        dest.setSource(src);
         }
 
     }
@@ -173,6 +186,16 @@ public class Circuit implements Noeud {
             return (Destination)m;
         return null;
     }
-    
+
+    @Override
+    public int getValue() {
+    return -1;//never called
+    }
+    public ArrayList<Entree> getEntrees(){
+        return entrees;
+    }
+    public ArrayList<Sortie> getSorties(){
+        return sorties;
+    }
 
 }
