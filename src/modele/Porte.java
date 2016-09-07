@@ -52,7 +52,7 @@ public abstract class Porte implements Noeud {
 
     public EntreePorte creerEntreePorte() {
         int n = EntreePorte.getNombreEntreePorte();
-        if (n >= 5) {
+        if (n >= 500) {
             // JOptionPane.showMessageDialog(null, "Le nombre d'entre est au maximum 5.", "Erreur", JOptionPane.ERROR_MESSAGE);
             return null;
         }

@@ -15,6 +15,9 @@ public abstract class Destination implements Noeud{
         source = src;
         src.setDestination(this);
     }
+    public Source getSource(){
+        return source;
+    }
     public int getValue() throws InvalidCircuitException{
         //dans un circuit valid (pret a calculer) destination est connecté
         // à une source qui fournit une valeur

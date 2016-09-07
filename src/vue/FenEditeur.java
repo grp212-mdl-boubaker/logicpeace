@@ -6,9 +6,15 @@
 package vue;
 
 import java.util.List;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import modele.Circuit;
+import modele.Destination;
 import modele.Editeur;
 import modele.Entree;
+import modele.Noeud;
+import modele.Observer;
+import modele.Porte;
 import modele.Sortie;
 import modele.TableVerite;
 
@@ -16,7 +22,7 @@ import modele.TableVerite;
  *
  * @author Admin
  */
-public class FenEditeur extends javax.swing.JFrame {
+public class FenEditeur extends javax.swing.JFrame implements Observer{
 
     private Circuit racine;
     TableVerite tv;
@@ -30,12 +36,24 @@ public class FenEditeur extends javax.swing.JFrame {
     public FenEditeur(Circuit c0) {
         this.racine = c0;
         initComponents();
+        updateInterface();//loads combobox with gates contained in circuit
         tv = new TableVerite(racine);
         racine.attache(tv);
+        racine.attache(this);
         afficherCircuit();
         
     }
-
+    private void updateInterface(){
+        List lst = racine.getElements();
+        
+        DefaultComboBoxModel model = (DefaultComboBoxModel)jComboBox1.getModel();
+        model.removeAllElements();
+        for (Object node:lst)
+        {
+            if (node instanceof Destination)
+                model.addElement(new ComboObject((Destination)node));
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,11 +70,15 @@ public class FenEditeur extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         btnAjouterSortie = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        txtNoeud2 = new javax.swing.JTextField();
-        txtNoeud1 = new javax.swing.JTextField();
-        btnLier = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextArea3 = new javax.swing.JTextArea();
+        jButton2 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
         btnAjouterPorteOR = new javax.swing.JButton();
         btnAjouterPorteNOT = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -94,52 +116,75 @@ public class FenEditeur extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        btnLier.setText("Lier");
-        btnLier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLierActionPerformed(evt);
-            }
-        });
+        jLabel1.setText("Sources connectables:");
 
-        jLabel1.setText("Noeud1 :");
+        jLabel2.setText("Destination");
 
-        jLabel2.setText("Noeud2 : ");
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jScrollPane2.setViewportView(jTextArea2);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jTextArea3.setColumns(20);
+        jTextArea3.setRows(5);
+        jScrollPane3.setViewportView(jTextArea3);
+
+        jButton2.setText(">");
+
+        jLabel3.setText("Sources connectées:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
-                        .addGap(3, 3, 3))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNoeud1, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
-                    .addComponent(txtNoeud2))
-                .addGap(141, 141, 141))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnLier)
-                .addGap(56, 56, 56))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jScrollPane3)
+                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(56, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(136, 136, 136))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNoeud1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(7, 7, 7)
-                .addComponent(btnLier)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNoeud2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
                     .addComponent(jLabel2))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jButton2)
+                                .addGap(44, 44, 44))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         btnAjouterPorteOR.setText("Ajouter Porte OR");
@@ -180,10 +225,10 @@ public class FenEditeur extends javax.swing.JFrame {
                         .addComponent(btnAjouterEntree))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnAjouterPorteNOT)
-                        .addGap(54, 54, 54)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(26, 26, 26))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
@@ -207,7 +252,7 @@ public class FenEditeur extends javax.swing.JFrame {
                             .addComponent(jButton1)))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -218,7 +263,7 @@ public class FenEditeur extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,16 +290,6 @@ public class FenEditeur extends javax.swing.JFrame {
         Editeur.ajouterSortie();
         afficherCircuit();
     }//GEN-LAST:event_btnAjouterSortieActionPerformed
-
-    private void btnLierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLierActionPerformed
-        //lier deux noeuds
-        racine.lier(txtNoeud1.getText(), txtNoeud2.getText());
-
-        txtNoeud1.setText("");
-        txtNoeud2.setText("");
-
-        afficherCircuit();
-    }//GEN-LAST:event_btnLierActionPerformed
 
     private void btnAjouterPorteORActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjouterPorteORActionPerformed
         Editeur.ajouterPorte("OR");
@@ -312,22 +347,31 @@ public class FenEditeur extends javax.swing.JFrame {
     private javax.swing.JButton btnAjouterPorteNOT;
     private javax.swing.JButton btnAjouterPorteOR;
     private javax.swing.JButton btnAjouterSortie;
-    private javax.swing.JButton btnLier;
     private javax.swing.JButton btnPorteAND;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField txtNoeud1;
-    private javax.swing.JTextField txtNoeud2;
+    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JTextArea jTextArea3;
     // End of variables declaration//GEN-END:variables
 
     private void afficherCircuit() {
         // System.out.println(c0);
         jTextArea1.append("\n--------------------------------\n");
         jTextArea1.append(racine.toString() + "\n");
+    }
+
+    @Override
+    public void update() {
+    updateInterface();
     }
 }

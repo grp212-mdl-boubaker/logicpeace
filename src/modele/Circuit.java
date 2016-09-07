@@ -100,13 +100,13 @@ public class Circuit implements Noeud, Subject {
                 sortiePorte = porte.creerSortiePorte();
                 porte.ajouterEntree(entreePorte1,0);
                 dic.put(entreePorte1.getNom(), (Noeud) entreePorte1);
-                //ajouterNoeud(entreePorte1);
+                ajouterNoeud(entreePorte1);
                 porte.ajouterEntree(entreePorte2,1);
                 dic.put(entreePorte2.getNom(), (Noeud) entreePorte2);
-                //ajouterNoeud(entreePorte2);
+                ajouterNoeud(entreePorte2);
                 porte.ajouterSortie(sortiePorte);
                 dic.put(sortiePorte.getNom(), (Noeud) sortiePorte);
-                //ajouterNoeud(sortiePorte);
+                ajouterNoeud(sortiePorte);
                 break;
              case "NOT":
                 porte = new NOT(nom);
