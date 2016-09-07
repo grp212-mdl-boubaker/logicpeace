@@ -59,6 +59,9 @@ public class FenEditeur extends javax.swing.JFrame implements Observer{
         
     }
     private void updateInterface(){
+        //preserver selected item
+        System.out.println(comboModel.getSelectedItem());
+        Pair selectedPair = (Pair)comboModel.getSelectedItem();
         //pendant update desactiver combo listener
         jComboBox1.removeActionListener(lsnr);
         List lst = racine.getElements();
@@ -70,17 +73,24 @@ public class FenEditeur extends javax.swing.JFrame implements Observer{
             if (node instanceof Destination)
                 comboModel.addElement(new Pair((Destination)node));
             else if (node instanceof Source)
-                listModelSources.addElement(new Pair((Source)node));
+            {
+                Source sc = (Source)node;
+                if (sc.getDestination() == null)//seulement les sources qui sont disponibles (non connectées)
+                    listModelSources.addElement(new Pair(sc));
+            }
         }
+        
         //update jlist2
+        if (selectedPair != null)
+            comboModel.setSelectedItem(selectedPair);
         Pair pair = (Pair)comboModel.getSelectedItem();
         Destination dest = (Destination)pair.getNoeud();
         if (dest.getSource() != null)
         {
             Pair p = new Pair(dest.getSource());
             listModelConnectedSources.addElement(p);
-            listModelSources.removeElement(p);
         }
+    //recupere listener    
     jComboBox1.addActionListener(lsnr);
     }
     /**
@@ -150,8 +160,6 @@ public class FenEditeur extends javax.swing.JFrame implements Observer{
 
         jLabel2.setText("Destination");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         btnConnect.setText(">");
         btnConnect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,11 +171,6 @@ public class FenEditeur extends javax.swing.JFrame implements Observer{
 
         jScrollPane4.setViewportView(jList1);
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane5.setViewportView(jList2);
 
         jButton3.setText("<");

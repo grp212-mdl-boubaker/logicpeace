@@ -18,4 +18,7 @@ public abstract class Source implements Noeud{
     public int getValue() throws InvalidCircuitException{
         return value;
     }
+    public Destination getDestination(){
+        return destination;
+    }
 }
