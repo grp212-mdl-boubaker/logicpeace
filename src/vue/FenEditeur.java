@@ -60,7 +60,6 @@ public class FenEditeur extends javax.swing.JFrame implements Observer{
     }
     private void updateInterface(){
         //preserver selected item
-        System.out.println(comboModel.getSelectedItem());
         Pair selectedPair = (Pair)comboModel.getSelectedItem();
         //pendant update desactiver combo listener
         jComboBox1.removeActionListener(lsnr);
