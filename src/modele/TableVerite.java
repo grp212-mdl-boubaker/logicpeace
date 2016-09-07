@@ -78,11 +78,17 @@ public class TableVerite implements Observer{
         for (int i = 0; i < rowCount;i++ )
         {
             sb.append(toBinaryString(i));
+            if (!table.isEmpty())//circuit est valid
             for (Integer intg:table.get(new Integer(i)))
             {
                 String x = (intg != null)?String.valueOf(intg.intValue()):"ND";
                 sb.append(" " + x);
             }
+            else
+                for (int k = 0;k < lstSortie.size(); k++)
+                {
+                    sb.append("ND ");
+                }
             sb.append("\n");
         }
         return sb.toString();
