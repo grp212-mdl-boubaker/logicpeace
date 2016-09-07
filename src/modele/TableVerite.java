@@ -77,13 +77,25 @@ public class TableVerite implements Observer{
         int rowCount = (int)Math.pow(2,lstEntree.size());
         for (int i = 0; i < rowCount;i++ )
         {
-            sb.append(i);
+            sb.append(toBinaryString(i));
             for (Integer intg:table.get(new Integer(i)))
             {
                 String x = (intg != null)?String.valueOf(intg.intValue()):"ND";
                 sb.append(" " + x);
             }
             sb.append("\n");
+        }
+        return sb.toString();
+    }
+    private String toBinaryString(int i){
+        int mask = 1;
+        StringBuffer sb = new StringBuffer();
+        for (int j = 0; j < lstEntree.size();j++)
+        {
+            int c = i >> j;
+            int result = mask & c;
+            sb.append(result);
+            sb.append(" ");
         }
         return sb.toString();
     }
