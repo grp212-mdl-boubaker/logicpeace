@@ -10,6 +10,7 @@ import modele.Circuit;
 import modele.Editeur;
 import modele.Entree;
 import modele.Sortie;
+import modele.TableVerite;
 
 /**
  *
@@ -29,6 +30,8 @@ public class FenEditeur extends javax.swing.JFrame {
     public FenEditeur(Circuit c0) {
         this.racine = c0;
         initComponents();
+        TableVerite tv = new TableVerite(racine);
+        racine.attache(tv);
         afficherCircuit();
         
     }

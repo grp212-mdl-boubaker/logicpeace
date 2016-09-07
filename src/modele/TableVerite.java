@@ -25,7 +25,8 @@ public class TableVerite implements Observer{
         circuit = c;
         lstEntree = c.getEntrees();
         lstSortie = c.getSorties();
-        
+        nbEntree = lstEntree.size();
+        nbSortie = lstSortie.size();
     }
 
     @Override

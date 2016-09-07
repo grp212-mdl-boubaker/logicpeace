@@ -14,11 +14,12 @@ import static modele.Editeur.racine;
  *
  * @author Admin
  */
-public class Circuit implements Noeud {
+public class Circuit implements Noeud, Subject {
 
     private static int nombreCircuit = 0;
     private String nom;
     private List elements = new ArrayList<Noeud>();
+    private ArrayList<Observer> lstObserver = new ArrayList<Observer>(); 
     private boolean modifie = false;
     static Circuit circuit;
     private ArrayList<Entree> entrees = new ArrayList<Entree>();
@@ -196,6 +197,22 @@ public class Circuit implements Noeud {
     }
     public ArrayList<Sortie> getSorties(){
         return sorties;
+    }
+
+    @Override
+    public void attache(Observer obs) {
+        lstObserver.add(obs);
+    }
+
+    @Override
+    public void detache(Observer obs) {
+        lstObserver.remove(obs);
+    }
+
+    @Override
+    public void notifier() {
+        for (Observer obs:lstObserver)
+            obs.update();
     }
 
 }
