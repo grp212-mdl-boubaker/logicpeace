@@ -9,13 +9,8 @@ package modele;
  *
  * @author shahin.behrooz@gmail.com
  */
-public abstract class Source implements Noeud{
-    private int value;
-    Destination destination;
-    public void setDestination(Destination dest){
-        destination = dest;
-    }
-    public int getValue(){
-        return value;
-    }
+public interface Subject {
+    public void attache(Observer obs);
+    public void detache(Observer obs);
+    public void notifier();
 }

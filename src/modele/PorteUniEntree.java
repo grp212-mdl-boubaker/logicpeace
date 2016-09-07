@@ -10,8 +10,10 @@ package modele;
  * @author shahin.behrooz@gmail.com
  */
 public abstract class PorteUniEntree extends Porte{
+ 
     public PorteUniEntree(String nom){
         super(nom);
+        entrees = new EntreePorte[1];
     }
  public int getValue() {
     EntreePorte entreePort = entrees[0];
@@ -19,5 +21,8 @@ public abstract class PorteUniEntree extends Porte{
     Integer addresse = new Integer(e);
     return ((Integer)tableDeValeurs.get(addresse)).intValue();
     }
-
+    @Override
+    public String toString() {
+        return "Porte{" + "nom=" + getNom() + ", entree=" + entrees[0];
+    }
 }

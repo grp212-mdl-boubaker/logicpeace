@@ -13,7 +13,8 @@ import java.util.Hashtable;
  */
 public class AND  extends PorteDoubleEntree{
     private String signe="<AND>";
-    
+    private SortiePorte sortie;
+    // pour le fonctionnement refere a PorteDoubleEntree
     public AND(String nom) {
         super(nom);
         // la table pour determiner le resultat d<une operation And selon les entrees
@@ -27,8 +28,19 @@ public class AND  extends PorteDoubleEntree{
     }
 
     @Override
+    public void ajouterSortie(SortiePorte sortiePorte) {
+        super.ajouterSortie(sortiePorte); 
+        sortie = sortiePorte;
+    }
+    
+    @Override
     public String getSigne() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " sortie " + sortie;
     }
 
 

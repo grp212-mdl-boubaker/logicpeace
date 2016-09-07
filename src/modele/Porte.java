@@ -43,14 +43,11 @@ public abstract class Porte implements Noeud {
         this.nom = nom;
     }
 
-    public void ajouter(Noeud element) {
-        elements.add(element);
+    public void ajouterEntree(EntreePorte entree,int i) {
+        entrees[i] = entree;
     }
 
-    @Override
-    public String toString() {
-        return "Porte{" + "nom=" + nom + ", elements=" + elements + '}';
-    }
+
   //creation un objet de type EntreePorte
 
     public EntreePorte creerEntreePorte() {
@@ -71,5 +68,8 @@ public abstract class Porte implements Noeud {
         SortiePorte.setNombreSortiePorte(n + 1);
         SortiePorte sp = new SortiePorte(nom);
         return sp;
+    }
+    public void ajouterSortie(SortiePorte sortiePorte){
+        sortiePorte.porte = this;
     }
 }

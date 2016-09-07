@@ -5,8 +5,6 @@
  */
 package modele;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -39,18 +37,11 @@ public class SortiePorte  extends Source {
         this.nom = nom;
     }
 
-       //Lier
-    public void connecter(Destination liee) {
-        try {
-            destination = liee;
-        } catch (IllegalArgumentException ex) {
-            throw new IllegalArgumentException("faire le lien n'est pas possible.");
-        }
-    }
+
 
     @Override
     public String toString() {
-        return "SortiePorte{" + "nom=" + nom + '}';
+        return "SortiePorte{" + "nom=" + nom + ", lien=" + destination + '}';
     }
 
     @Override

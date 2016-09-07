@@ -5,6 +5,7 @@
  */
 package modele;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class TableVerite implements Observer{
     List<Entree> lstEntree;
     List<Sortie> lstSortie;
     Circuit circuit;
-    private Hashtable<Integer,Integer> table;
+    private Hashtable<Integer,List<Integer>> table;
     public TableVerite(Circuit c){
          
         circuit = c;
@@ -40,12 +41,26 @@ public class TableVerite implements Observer{
             011 (pour 3 entrees), 0011 (pour 4) et ainsi de suit
             */
             setSurLesEntrees(i);
-            evaluerLesSorties();//evaluer les sorties et les mettre dans hashtable
+            examinerLesSorties(i);//evaluer les sorties et les mettre dans hashtable
         }
         
     }
     private void setSurLesEntrees(int k){
         
+        for (int i=0; i < lstEntree.size();i++ )
+        {
+            int mask = 1;//mask pour faire and et obtenir le chiffre le plus droit
+            // 
+            int a = k >> i;//shift right
+            int result = a & mask;
+            lstEntree.get(i).setValue(result);
+        }
+    }
+    private void examinerLesSorties(int rowNumber){
+        ArrayList<Integer> outputValues = new ArrayList<Integer>();
+        for (Sortie sortie:lstSortie)
+            outputValues.add(new Integer(sortie.getValue()));
+        table.put(new Integer(rowNumber), outputValues);
     }
     
 }

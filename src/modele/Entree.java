@@ -18,7 +18,7 @@ public class Entree extends Source{
     private String nom;
     private int valeur = 0;
     private List lien = new ArrayList<EntreePorte>();
-    private Destination destination;
+    
     public Entree(String nom) {
         this.nom = nom;
     }
@@ -39,18 +39,10 @@ public class Entree extends Source{
         this.nom = nom;
     }
 
-    //Lier
-    public void connecter(Destination liee) {
-        try {
-            destination = liee;
-        } catch (IllegalArgumentException ex) {
-            throw new IllegalArgumentException("faire le lien n'est pas possible.");
-        }
-    }
 
     @Override
     public String toString() {
-        return "Entree{" + "nom=" + nom + ", lien=" + lien + '}';
+        return "Entree{" + "nom=" + nom + ", lien=" + destination + '}';
     }
     
     public int getValue(){

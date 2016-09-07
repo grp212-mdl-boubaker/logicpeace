@@ -13,6 +13,7 @@ package modele;
 public abstract class PorteDoubleEntree extends Porte{
    public PorteDoubleEntree(String nom){
        super(nom);
+       entrees = new EntreePorte[2];
    }
     public int getValue() {
     EntreePorte entreePort1 = entrees[0];
@@ -22,5 +23,9 @@ public abstract class PorteDoubleEntree extends Porte{
     Integer addresse = new Integer(e1 + e2 * 2);
     return ((Integer)tableDeValeurs.get(addresse)).intValue();
     }
-
+    @Override
+    public String toString() {
+        return "Porte{" + "nom=" + getNom() + ", entrees=" + entrees[0] + ',' + entrees[1];
+    }
+    
 }

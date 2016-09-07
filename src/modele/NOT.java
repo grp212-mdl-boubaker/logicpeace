@@ -13,9 +13,10 @@ import java.util.Hashtable;
  */
 public class NOT  extends PorteUniEntree{
     private String signe="<NOT>";
-    
+    private SortiePorte sortie;
     public NOT(String nom) {
         super(nom);
+        entrees = new EntreePorte[1];
         tableDeValeurs = new Hashtable();
         tableDeValeurs.put(new Integer(0), new Integer(1));
         tableDeValeurs.put(new Integer(1),new Integer(0));
@@ -23,7 +24,13 @@ public class NOT  extends PorteUniEntree{
 
     @Override
     public String getSigne() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return super.toString() + " sortie " + sortie + " }";
+    }
+
+    @Override
+    public void ajouterSortie(SortiePorte sortiePorte) {
+        super.ajouterSortie(sortiePorte);
+        sortie = sortiePorte;
     }
     
       

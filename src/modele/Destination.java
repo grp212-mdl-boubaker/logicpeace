@@ -11,8 +11,9 @@ package modele;
  */
 public abstract class Destination implements Noeud{
     private Source source;    
-    public void connecter(Source src){
+    public void setSource(Source src){
         source = src;
+        src.setDestination(this);
     }
     public int getValue() {
         //dans un circuit valid (pret a calculer) entreeporte est connecté

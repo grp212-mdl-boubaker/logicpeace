@@ -13,7 +13,7 @@ import java.util.Hashtable;
  */
 public class OR  extends PorteDoubleEntree{
     private String signe="<OR>";
-    
+    private SortiePorte sortie;
     public OR(String nom) {
         super(nom);
                 // la table pour determiner le resultat d<une operation And selon les entrees
@@ -24,9 +24,17 @@ public class OR  extends PorteDoubleEntree{
         tableDeValeurs.put(new Integer(3),new Integer(0));
 
     }
-
+   @Override
+    public void ajouterSortie(SortiePorte sortiePorte) {
+        super.ajouterSortie(sortiePorte); 
+        sortie = sortiePorte;
+    }
     @Override
     public String getSigne() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    public String toString() {
+        return super.toString() + " sortie " + sortie;
+    }
+
 }
