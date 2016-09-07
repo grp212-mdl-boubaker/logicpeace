@@ -12,8 +12,6 @@ package modele;
 public class EntreePorte  extends Destination {
     private static int nombreEntreePorte=0;
     private String nom;
-    // source connectée à cette entree
-    private Source source;
     
     public EntreePorte(String nom) {
         this.nom = nom;

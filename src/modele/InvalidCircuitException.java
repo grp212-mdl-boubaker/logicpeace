@@ -7,9 +7,10 @@ package modele;
 
 /**
  *
- * @author Admin
+ * @author shahin.behrooz@gmail.com
  */
-public interface Noeud {
-    public int getValue() throws InvalidCircuitException;
-    public String getNom();
+public class InvalidCircuitException extends Exception{
+    public InvalidCircuitException(String message){
+        super(message);
+    }
 }

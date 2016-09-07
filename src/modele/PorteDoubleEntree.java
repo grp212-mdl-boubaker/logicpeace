@@ -15,7 +15,7 @@ public abstract class PorteDoubleEntree extends Porte{
        super(nom);
        entrees = new EntreePorte[2];
    }
-    public int getValue() {
+    public int getValue() throws InvalidCircuitException {
     EntreePorte entreePort1 = entrees[0];
     EntreePorte entreePort2 = entrees[1];
     int e1 = entreePort1.getValue();

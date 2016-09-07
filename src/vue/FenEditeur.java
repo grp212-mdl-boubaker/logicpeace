@@ -19,7 +19,7 @@ import modele.TableVerite;
 public class FenEditeur extends javax.swing.JFrame {
 
     private Circuit racine;
-
+    TableVerite tv;
     /**
      * Creates new form FenEditeur
      */
@@ -30,7 +30,7 @@ public class FenEditeur extends javax.swing.JFrame {
     public FenEditeur(Circuit c0) {
         this.racine = c0;
         initComponents();
-        TableVerite tv = new TableVerite(racine);
+        tv = new TableVerite(racine);
         racine.attache(tv);
         afficherCircuit();
         
@@ -268,13 +268,8 @@ public class FenEditeur extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        List<Sortie> lst = racine.getSorties();
         
-        List<Entree> enLst = racine.getEntrees();
-        enLst.get(0).setValue(1);
-        enLst.get(1).setValue(1);
-        int i = lst.get(0).getValue();
-        System.out.println("i= " + i);
+        System.out.println(tv.toString());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

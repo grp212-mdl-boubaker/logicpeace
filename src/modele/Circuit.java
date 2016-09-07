@@ -60,6 +60,7 @@ public class Circuit implements Noeud, Subject {
         else if (element instanceof Sortie)
             sorties.add((Sortie)element);
         elements.add(element);
+        notifier();
     }
 
     public void afficher() {
@@ -169,7 +170,7 @@ public class Circuit implements Noeud, Subject {
             throw new IllegalArgumentException("Les noeuds ne sont pas liables.");
         dest.setSource(src);
         }
-
+        notifier();
     }
     // retourne celle qui est de type Source
     // utility methods just for facilitate
@@ -213,6 +214,11 @@ public class Circuit implements Noeud, Subject {
     public void notifier() {
         for (Observer obs:lstObserver)
             obs.update();
+    }
+
+    @Override
+    public String getNom() {
+        return nom;
     }
 
 }

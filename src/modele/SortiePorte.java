@@ -45,7 +45,7 @@ public class SortiePorte  extends Source {
     }
 
     @Override
-    public int getValue() {
+    public int getValue() throws InvalidCircuitException{
         return porte.getValue();
     }
     

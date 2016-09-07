@@ -5,6 +5,8 @@
  */
 package modele;
 
+import java.io.BufferedOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -27,6 +29,7 @@ public class TableVerite implements Observer{
         lstSortie = c.getSorties();
         nbEntree = lstEntree.size();
         nbSortie = lstSortie.size();
+        table = new Hashtable<Integer,List<Integer>>();
     }
 
     @Override
@@ -60,8 +63,28 @@ public class TableVerite implements Observer{
     private void examinerLesSorties(int rowNumber){
         ArrayList<Integer> outputValues = new ArrayList<Integer>();
         for (Sortie sortie:lstSortie)
+            try{
             outputValues.add(new Integer(sortie.getValue()));
+            }catch(InvalidCircuitException e){
+                table.clear();
+                return;
+            }
         table.put(new Integer(rowNumber), outputValues);
     }
-    
+    @Override
+    public String toString(){
+        StringBuffer sb = new StringBuffer();
+        int rowCount = (int)Math.pow(2,lstEntree.size());
+        for (int i = 0; i < rowCount;i++ )
+        {
+            sb.append(i);
+            for (Integer intg:table.get(new Integer(i)))
+            {
+                String x = (intg != null)?String.valueOf(intg.intValue()):"ND";
+                sb.append(" " + x);
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
 }
