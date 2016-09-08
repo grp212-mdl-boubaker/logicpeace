@@ -91,7 +91,6 @@ public class Circuit implements Noeud, Subject {
                 dic.put(entreePorte2.getNom(),  entreePorte2);
 //                ajouterNoeud(entreePorte2);
                 porte.ajouterSortie(sortiePorte);
-                elements.add(porte);
                 dic.put(sortiePorte.getNom(),  sortiePorte);
                 //ajouterNoeud(sortiePorte);
                 break;
@@ -107,7 +106,6 @@ public class Circuit implements Noeud, Subject {
                 dic.put(entreePorte2.getNom(),  entreePorte2);
 //                ajouterNoeud(entreePorte2);
                 porte.ajouterSortie(sortiePorte);
-                elements.add(porte);
                 dic.put(sortiePorte.getNom(), sortiePorte);
                // ajouterNoeud(sortiePorte);
                 break;
@@ -119,7 +117,6 @@ public class Circuit implements Noeud, Subject {
                 dic.put(entreePorte1.getNom(), entreePorte1);
 //                ajouterNoeud(entreePorte1);
                 porte.ajouterSortie(sortiePorte);
-                elements.add(porte);
                 dic.put(sortiePorte.getNom(), sortiePorte);
             //    ajouterNoeud(sortiePorte);
                 break;    
@@ -127,7 +124,7 @@ public class Circuit implements Noeud, Subject {
         }
         if (porte != null) {
             ajouterNoeud(porte);
-            dic.put(porte.getNom(), (Noeud) porte);
+            dic.put(porte.getNom(),  porte);
         }
         return porte;
     }
