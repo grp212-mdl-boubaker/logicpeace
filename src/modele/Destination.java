@@ -9,7 +9,7 @@ package modele;
  *
  * @author shahin.behrooz@gmail.com
  */
-public abstract class Destination implements Noeud{
+public abstract class Destination implements NamedObject{
     private Source source;    
     public void setSource(Source src){
         source = src;
@@ -19,6 +19,7 @@ public abstract class Destination implements Noeud{
     public Source getSource(){
         return source;
     }
+    public abstract String getNom();
     public int getValue() throws InvalidCircuitException{
         //dans un circuit valid (pret a calculer) destination est connecté
         // à une source qui fournit une valeur

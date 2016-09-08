@@ -5,6 +5,8 @@
  */
 package modele;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author shahin.behrooz@gmail.com
@@ -13,11 +15,11 @@ package modele;
 public abstract class PorteDoubleEntree extends Porte{
    public PorteDoubleEntree(String nom){
        super(nom);
-       entrees = new EntreePorte[2];
+       entrees = new ArrayList<EntreePorte>();
    }
     public int getValue() throws InvalidCircuitException {
-    EntreePorte entreePort1 = entrees[0];
-    EntreePorte entreePort2 = entrees[1];
+    EntreePorte entreePort1 = entrees.get(0);
+    EntreePorte entreePort2 = entrees.get(1);
     int e1 = entreePort1.getValue();
     int e2 = entreePort2.getValue();
     Integer addresse = new Integer(e1 + e2 * 2);
@@ -25,7 +27,7 @@ public abstract class PorteDoubleEntree extends Porte{
     }
     @Override
     public String toString() {
-        return "Porte{" + "nom=" + getNom() + ", entrees=" + entrees[0] + ',' + entrees[1];
+        return "Porte{" + "nom=" + getNom() + ", entrees=" + entrees.get(0) + ',' + entrees.get(1);
     }
     
 }

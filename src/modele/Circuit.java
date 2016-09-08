@@ -53,7 +53,7 @@ public class Circuit implements Noeud, Subject {
         this.elements = elements;
     }
 
-    public void ajouterNoeud(Noeud element) {
+    public void ajouterNoeud(Object element) {
         //on veut garder les entrees separement
         if (element instanceof Entree)
             entrees.add((Entree)element);
@@ -85,14 +85,15 @@ public class Circuit implements Noeud, Subject {
                 entreePorte2 = porte.creerEntreePorte();
                 sortiePorte = porte.creerSortiePorte();
                 porte.ajouterEntree(entreePorte1,0);//index 0 = premier entree
-                dic.put(entreePorte1.getNom(), (Noeud) entreePorte1);
-                ajouterNoeud(entreePorte1);
+                dic.put(entreePorte1.getNom(),  entreePorte1);
+//                ajouterNoeud(entreePorte1);
                 porte.ajouterEntree(entreePorte2,1);
-                dic.put(entreePorte2.getNom(), (Noeud) entreePorte2);
-                ajouterNoeud(entreePorte2);
+                dic.put(entreePorte2.getNom(),  entreePorte2);
+//                ajouterNoeud(entreePorte2);
                 porte.ajouterSortie(sortiePorte);
-                dic.put(sortiePorte.getNom(), (Noeud) sortiePorte);
-                ajouterNoeud(sortiePorte);
+                elements.add(porte);
+                dic.put(sortiePorte.getNom(),  sortiePorte);
+                //ajouterNoeud(sortiePorte);
                 break;
             case "AND":
                 porte = new AND(nom);
@@ -100,25 +101,27 @@ public class Circuit implements Noeud, Subject {
                 entreePorte2 = porte.creerEntreePorte();
                 sortiePorte = porte.creerSortiePorte();
                 porte.ajouterEntree(entreePorte1,0);
-                dic.put(entreePorte1.getNom(), (Noeud) entreePorte1);
-                ajouterNoeud(entreePorte1);
+                dic.put(entreePorte1.getNom(),  entreePorte1);
+//                ajouterNoeud(entreePorte1);
                 porte.ajouterEntree(entreePorte2,1);
-                dic.put(entreePorte2.getNom(), (Noeud) entreePorte2);
-                ajouterNoeud(entreePorte2);
+                dic.put(entreePorte2.getNom(),  entreePorte2);
+//                ajouterNoeud(entreePorte2);
                 porte.ajouterSortie(sortiePorte);
-                dic.put(sortiePorte.getNom(), (Noeud) sortiePorte);
-                ajouterNoeud(sortiePorte);
+                elements.add(porte);
+                dic.put(sortiePorte.getNom(), sortiePorte);
+               // ajouterNoeud(sortiePorte);
                 break;
              case "NOT":
                 porte = new NOT(nom);
                 entreePorte1 = porte.creerEntreePorte();
                 sortiePorte = porte.creerSortiePorte();
                 porte.ajouterEntree(entreePorte1,0);
-                dic.put(entreePorte1.getNom(), (Noeud) entreePorte1);
-                ajouterNoeud(entreePorte1);
+                dic.put(entreePorte1.getNom(), entreePorte1);
+//                ajouterNoeud(entreePorte1);
                 porte.ajouterSortie(sortiePorte);
-                dic.put(sortiePorte.getNom(), (Noeud) sortiePorte);
-                ajouterNoeud(sortiePorte);
+                elements.add(porte);
+                dic.put(sortiePorte.getNom(), sortiePorte);
+            //    ajouterNoeud(sortiePorte);
                 break;    
                 
         }
@@ -140,7 +143,7 @@ public class Circuit implements Noeud, Subject {
         Entree.setNombreEntree(n + 1);
         Entree e = new Entree(nom);
         racine.ajouterNoeud(e);
-        dic.put(e.getNom(), (Noeud) e);
+        dic.put(e.getNom(), e);
         return e;
     }
 //creation un objet de type  Sortie
@@ -150,7 +153,7 @@ public class Circuit implements Noeud, Subject {
         Sortie.setNombreSortie(Sortie.getNombreSortie() + 1);
         Sortie s = new Sortie(nom);
         racine.ajouterNoeud(s);
-        dic.put(s.getNom(), (Noeud) s);
+        dic.put(s.getNom(),  s);
         // circuit a change donc notifier les observateurs
         return s;
     }
@@ -163,8 +166,8 @@ public class Circuit implements Noeud, Subject {
 //lier deux noeuds
 
     public void lier(String txtNoeud1, String txtNoeud2) {
-        Noeud noeud1 = Editeur.RechercherNoeud(txtNoeud1);
-        Noeud noeud2 = Editeur.RechercherNoeud(txtNoeud2);
+        Object noeud1 = Editeur.RechercherNoeud(txtNoeud1);
+        Object noeud2 = Editeur.RechercherNoeud(txtNoeud2);
         if (noeud1 != null && noeud2 != null) {
         Destination dest = getDestination(noeud1, noeud2);
         if (dest.getSource() != null)// deja connectee
@@ -177,8 +180,8 @@ public class Circuit implements Noeud, Subject {
         notifier();
     }
     public void delier(String txtNoeud1, String txtNoeud2) {
-        Noeud noeud1 = Editeur.RechercherNoeud(txtNoeud1);
-        Noeud noeud2 = Editeur.RechercherNoeud(txtNoeud2);
+        Object noeud1 = Editeur.RechercherNoeud(txtNoeud1);
+        Object noeud2 = Editeur.RechercherNoeud(txtNoeud2);
         if (noeud1 != null && noeud2 != null) {
         Destination dest = getDestination(noeud1, noeud2);
         if (dest.getSource() != null)
@@ -191,14 +194,14 @@ public class Circuit implements Noeud, Subject {
     }
     // retourne celle qui est de type Source
     // utility methods just for facilitate
-    private Source getSource(Noeud n,Noeud m){
+    private Source getSource(Object n,Object m){
         if (n instanceof Source)
             return (Source)n;
         if (m instanceof Source)
             return (Source)m;
         return null;
     }
-    private Destination getDestination(Noeud n,Noeud m){
+    private Destination getDestination(Object n,Object m){
         if (n instanceof Destination)
             return (Destination)n;
         if (m instanceof Destination)

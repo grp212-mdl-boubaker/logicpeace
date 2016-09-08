@@ -12,12 +12,13 @@ import java.util.List;
  *
  * @author shahin.behrooz@gmail.com
  */
-public abstract class Source implements Noeud{
+public abstract class Source implements NamedObject{
     private int value;
     ArrayList<Destination> destinations = new ArrayList<Destination>();
     public void addDestination(Destination dest){
         destinations.add(dest);
     }
+    public abstract String getNom(); 
     public int getValue() throws InvalidCircuitException{
         return value;
     }

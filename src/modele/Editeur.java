@@ -38,7 +38,7 @@ public class Editeur {
         racine.creerSortie();
     }
     //rechercher un nom dans le dictionnaire
-    public static Noeud RechercherNoeud(String nom) {
-        return (Noeud)dic.get(nom);
+    public static Object RechercherNoeud(String nom) {
+        return dic.get(nom);
     }
 }

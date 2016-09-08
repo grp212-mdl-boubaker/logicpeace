@@ -18,8 +18,9 @@ public abstract class Porte implements Noeud {
     static int nombrePorte = 0;
     Hashtable tableDeValeurs;
     private String nom;
-    private List elements = new ArrayList<Noeud>();
-    EntreePorte[] entrees;
+ //   private List elements = new ArrayList<Noeud>();
+    ArrayList<EntreePorte> entrees;
+    SortiePorte sortie;
     public abstract String getSigne();
 
     public Porte(String nom) {
@@ -44,9 +45,11 @@ public abstract class Porte implements Noeud {
     }
 
     public void ajouterEntree(EntreePorte entree,int i) {
-        entrees[i] = entree;
+        entrees.add(i, entree);
     }
-
+    public List getEntrees(){
+        return entrees;
+    }
 
   //creation un objet de type EntreePorte
 
@@ -71,5 +74,8 @@ public abstract class Porte implements Noeud {
     }
     public void ajouterSortie(SortiePorte sortiePorte){
         sortiePorte.porte = this;
+    }
+    public SortiePorte getSortie(){
+        return sortie;
     }
 }

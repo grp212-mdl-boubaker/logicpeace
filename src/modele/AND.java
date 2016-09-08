@@ -5,6 +5,7 @@
  */
 package modele;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 /**
@@ -23,8 +24,6 @@ public class AND  extends PorteDoubleEntree{
         tableDeValeurs.put(new Integer(1),new Integer(0));
         tableDeValeurs.put(new Integer(2),new Integer(0));
         tableDeValeurs.put(new Integer(3),new Integer(1));
-        // gate and avec 2 entrees
-        entrees = new EntreePorte[2];
     }
 
     @Override

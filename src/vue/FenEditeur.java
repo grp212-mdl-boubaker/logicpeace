@@ -15,6 +15,7 @@ import modele.Editeur;
 import modele.Entree;
 import modele.Noeud;
 import modele.Observer;
+import modele.NamedObject;
 import modele.Porte;
 import modele.Sortie;
 import modele.Source;
@@ -66,31 +67,49 @@ public class FenEditeur extends javax.swing.JFrame implements Observer{
         Pair selectedPair = (Pair)comboModel.getSelectedItem();
         //pendant update desactiver combo listener
         jComboBox1.removeActionListener(lsnr);
+        
         List lst = racine.getElements();
         listModelSources.removeAllElements();
         comboModel.removeAllElements();
         listModelConnectedSources.removeAllElements();
         for (Object node:lst)
         {
-            if (node instanceof Destination)
-                comboModel.addElement(new Pair((Destination)node));
+            if (node instanceof Porte)
+            {
+                List<NamedObject> list = ((Porte)node).getEntrees();
+                //ajout des entrees
+                for (NamedObject dest:list)
+                {
+                comboModel.addElement(new Pair(dest));
+                }
+                //ajout de sortie
+                listModelSources.addElement(new Pair(((Porte)node).getSortie()));
+            }
+            else if (node instanceof Sortie)
+                comboModel.addElement(new Pair((NamedObject)node));
             else if (node instanceof Source)
             {
                 Source sc = (Source)node;
                 listModelSources.addElement(new Pair(sc));
                     
             }
+                
         }
         
         //update jlist2
         if (selectedPair != null)
+        {
             comboModel.setSelectedItem(selectedPair);
-        Pair pair = (Pair)comboModel.getSelectedItem();
-        Destination dest = (Destination)pair.getNoeud();
+        
+       
+        Pair pair = (Pair)selectedPair;
+        //on sait que c'est une destination
+        Destination dest = (Destination)pair.getObject();
         if (dest.getSource() != null)
         {
             Pair p = new Pair(dest.getSource());
             listModelConnectedSources.addElement(p);
+        }
         }
     //recupere listener    
     jComboBox1.addActionListener(lsnr);
@@ -351,9 +370,9 @@ public class FenEditeur extends javax.swing.JFrame implements Observer{
             Pair pair = (Pair)comboModel.getSelectedItem();
             int index = jList2.getSelectedIndex();
             Pair pSrc = listModelConnectedSources.elementAt(index);
-            Source src = (Source)pSrc.getNoeud();
+            Source src = (Source)pSrc.getObject();
             String sourceNom = src.getNom();
-            String destNom = pair.getNoeud().getNom();
+            String destNom = pair.getObject().getNom();
             racine.delier(sourceNom, destNom);
     }//GEN-LAST:event_btnDisconnectActionPerformed
 

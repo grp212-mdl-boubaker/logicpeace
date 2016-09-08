@@ -6,7 +6,9 @@
 package vue;
 
 import java.util.Objects;
+import modele.NamedObject;
 import modele.Noeud;
+import modele.NamedObject;
 import modele.Porte;
 
 /**
@@ -14,11 +16,11 @@ import modele.Porte;
  * @author shahin.behrooz@gmail.com
  */
 public class Pair {
-    private Noeud node;
-    Pair(Noeud node){
+    private NamedObject node;
+    Pair(NamedObject node){
         this.node = node;
     }
-    public Noeud getNoeud() {
+    public NamedObject getObject() {
         return node;
     }
 

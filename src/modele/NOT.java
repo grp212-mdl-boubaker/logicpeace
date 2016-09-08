@@ -5,6 +5,7 @@
  */
 package modele;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 /**
@@ -16,7 +17,7 @@ public class NOT  extends PorteUniEntree{
     private SortiePorte sortie;
     public NOT(String nom) {
         super(nom);
-        entrees = new EntreePorte[1];
+        entrees = new ArrayList<EntreePorte>();
         tableDeValeurs = new Hashtable();
         tableDeValeurs.put(new Integer(0), new Integer(1));
         tableDeValeurs.put(new Integer(1),new Integer(0));
