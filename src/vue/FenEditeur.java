@@ -56,7 +56,10 @@ public class FenEditeur extends javax.swing.JFrame implements Observer{
         racine.attache(tv);
         racine.attache(this);
         afficherCircuit();
-        
+        TableViewer monitor = new TableViewer(this, false);
+        racine.attache(monitor);
+        monitor.setVisible(true);
+        monitor.update();
     }
     private void updateInterface(){
         //preserver selected item
@@ -74,8 +77,8 @@ public class FenEditeur extends javax.swing.JFrame implements Observer{
             else if (node instanceof Source)
             {
                 Source sc = (Source)node;
-                if (sc.getDestination() == null)//seulement les sources qui sont disponibles (non connectées)
-                    listModelSources.addElement(new Pair(sc));
+                listModelSources.addElement(new Pair(sc));
+                    
             }
         }
         
@@ -117,7 +120,7 @@ public class FenEditeur extends javax.swing.JFrame implements Observer{
         jList1 = new javax.swing.JList<>();
         jScrollPane5 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList<>();
-        jButton3 = new javax.swing.JButton();
+        btnDisconnect = new javax.swing.JButton();
         btnAjouterPorteOR = new javax.swing.JButton();
         btnAjouterPorteNOT = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -172,10 +175,10 @@ public class FenEditeur extends javax.swing.JFrame implements Observer{
 
         jScrollPane5.setViewportView(jList2);
 
-        jButton3.setText("<");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnDisconnect.setText("<");
+        btnDisconnect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnDisconnectActionPerformed(evt);
             }
         });
 
@@ -191,7 +194,7 @@ public class FenEditeur extends javax.swing.JFrame implements Observer{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnConnect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnDisconnect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -219,7 +222,7 @@ public class FenEditeur extends javax.swing.JFrame implements Observer{
                         .addGap(13, 13, 13)
                         .addComponent(btnConnect)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)))
+                        .addComponent(btnDisconnect)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -343,25 +346,24 @@ public class FenEditeur extends javax.swing.JFrame implements Observer{
         System.out.println(tv.toString());
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnDisconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisconnectActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+            //Pair pair = (Pair)comboModel.getSelectedItem();
+            int index = jList2.getSelectedIndex();
+            Pair pair = listModelSources.getElementAt(index);
+            Source src = (Source)pair.getNoeud();
+            String sourceNom = src.getNom();
+            String destNom = src.getDestination().getNom();
+            racine.delier(sourceNom, destNom);
+    }//GEN-LAST:event_btnDisconnectActionPerformed
 
     private void btnConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConnectActionPerformed
         // TODO add your handling code here:
         Pair pair = (Pair)comboModel.getSelectedItem();
-        
-        //if (dest == null)
-//            return;
-//        if (dest.getSource() != null)
-//            return;
-//        else 
-//        {
             int index = jList1.getSelectedIndex();
             String sourceNom = listModelSources.getElementAt(index).toString();
             String destNom = pair.toString();
             racine.lier(sourceNom, destNom);
-        
     }//GEN-LAST:event_btnConnectActionPerformed
 
     /**
@@ -405,9 +407,9 @@ public class FenEditeur extends javax.swing.JFrame implements Observer{
     private javax.swing.JButton btnAjouterPorteOR;
     private javax.swing.JButton btnAjouterSortie;
     private javax.swing.JButton btnConnect;
+    private javax.swing.JButton btnDisconnect;
     private javax.swing.JButton btnPorteAND;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

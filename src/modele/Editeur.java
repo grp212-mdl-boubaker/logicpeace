@@ -22,7 +22,7 @@ public class Editeur {
         Entree entree1 = racine.creerEntree();
         Entree entree2 = racine.creerEntree();
         Sortie sortie = racine.creerSortie();
-        return racine;
+       return racine;
     }
     //ajouterPorte
     public static void ajouterPorte(String type){

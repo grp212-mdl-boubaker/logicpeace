@@ -13,6 +13,7 @@ public abstract class Destination implements Noeud{
     private Source source;    
     public void setSource(Source src){
         source = src;
+        if (src != null)
         src.setDestination(this);
     }
     public Source getSource(){

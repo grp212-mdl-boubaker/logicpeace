@@ -92,6 +92,7 @@ public class Circuit implements Noeud, Subject {
                 ajouterNoeud(entreePorte2);
                 porte.ajouterSortie(sortiePorte);
                 dic.put(sortiePorte.getNom(), (Noeud) sortiePorte);
+                ajouterNoeud(sortiePorte);
                 break;
             case "AND":
                 porte = new AND(nom);
@@ -150,6 +151,7 @@ public class Circuit implements Noeud, Subject {
         Sortie s = new Sortie(nom);
         racine.ajouterNoeud(s);
         dic.put(s.getNom(), (Noeud) s);
+        // circuit a change donc notifier les observateurs
         return s;
     }
 //tostring
@@ -165,10 +167,25 @@ public class Circuit implements Noeud, Subject {
         Noeud noeud2 = Editeur.RechercherNoeud(txtNoeud2);
         if (noeud1 != null && noeud2 != null) {
         Destination dest = getDestination(noeud1, noeud2);
+        if (dest.getSource() != null)// deja connectee
+            return;
         Source src = getSource(noeud1, noeud2);
         if (dest == null || src == null)
             throw new IllegalArgumentException("Les noeuds ne sont pas liables.");
         dest.setSource(src);
+        }
+        notifier();
+    }
+    public void delier(String txtNoeud1, String txtNoeud2) {
+        Noeud noeud1 = Editeur.RechercherNoeud(txtNoeud1);
+        Noeud noeud2 = Editeur.RechercherNoeud(txtNoeud2);
+        if (noeud1 != null && noeud2 != null) {
+        Destination dest = getDestination(noeud1, noeud2);
+        if (dest.getSource() != null)
+            dest.setSource(null);
+        Source src = getSource(noeud1, noeud2);
+        if (src != null)
+            src.setDestination(null);
         }
         notifier();
     }
