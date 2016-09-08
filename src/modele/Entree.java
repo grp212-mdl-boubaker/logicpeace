@@ -42,7 +42,10 @@ public class Entree extends Source{
 
     @Override
     public String toString() {
-        return "Entree{" + "nom=" + nom + ", lien=" + destination + '}';
+        String s = "";
+        for (Destination dest:destinations)
+            s = dest.getNom() + " ";
+        return "Entree{" + "nom=" + nom + ", lien=" + s + '}';
     }
     
     public int getValue(){

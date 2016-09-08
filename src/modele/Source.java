@@ -5,20 +5,26 @@
  */
 package modele;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author shahin.behrooz@gmail.com
  */
 public abstract class Source implements Noeud{
     private int value;
-    Destination destination;
-    public void setDestination(Destination dest){
-        destination = dest;
+    ArrayList<Destination> destinations = new ArrayList<Destination>();
+    public void addDestination(Destination dest){
+        destinations.add(dest);
     }
     public int getValue() throws InvalidCircuitException{
         return value;
     }
-    public Destination getDestination(){
-        return destination;
+    public List<Destination> getDestinations(){
+        return destinations;
+    }
+    public void removeDestination(Destination dest){
+        destinations.remove(dest);
     }
 }

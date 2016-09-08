@@ -185,7 +185,7 @@ public class Circuit implements Noeud, Subject {
             dest.setSource(null);
         Source src = getSource(noeud1, noeud2);
         if (src != null)
-            src.setDestination(null);
+            src.removeDestination(dest);
         }
         notifier();
     }

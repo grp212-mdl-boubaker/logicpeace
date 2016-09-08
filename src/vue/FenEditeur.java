@@ -348,12 +348,12 @@ public class FenEditeur extends javax.swing.JFrame implements Observer{
 
     private void btnDisconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisconnectActionPerformed
         // TODO add your handling code here:
-            //Pair pair = (Pair)comboModel.getSelectedItem();
+            Pair pair = (Pair)comboModel.getSelectedItem();
             int index = jList2.getSelectedIndex();
-            Pair pair = listModelSources.getElementAt(index);
-            Source src = (Source)pair.getNoeud();
+            Pair pSrc = listModelConnectedSources.elementAt(index);
+            Source src = (Source)pSrc.getNoeud();
             String sourceNom = src.getNom();
-            String destNom = src.getDestination().getNom();
+            String destNom = pair.getNoeud().getNom();
             racine.delier(sourceNom, destNom);
     }//GEN-LAST:event_btnDisconnectActionPerformed
 
