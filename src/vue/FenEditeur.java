@@ -66,8 +66,8 @@ public class FenEditeur extends javax.swing.JFrame implements Observer{
         jComboBox1.removeActionListener(lsnr);
         
         List lst = racine.getElements();
-        lst.addAll(racine.getEntrees());
-        lst.addAll(racine.getSorties());
+       // lst.addAll(racine.getEntrees());
+       // lst.addAll(racine.getSorties());
         listModelSources.removeAllElements();
         comboModel.removeAllElements();
         listModelConnectedSources.removeAllElements();

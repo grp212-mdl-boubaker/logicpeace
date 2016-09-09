@@ -47,6 +47,10 @@ public class EntreePorte  extends Destination {
  
     @Override
     public String toString() {
+        return  nom;
+    }
+    
+    public String afficher() {
         return "EntreePorte{" + "nom=" + nom + '}';
     }
 

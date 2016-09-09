@@ -18,7 +18,7 @@ public class Circuit implements Noeud, Subject {
 
     private static int nombreCircuit = 0;
     private String nom;
-    private List<Noeud> elements = new ArrayList<Noeud>();
+    private List elements = new ArrayList();
     private ArrayList<Observer> lstObserver = new ArrayList<Observer>(); 
     private boolean modifie = false;
     static Circuit circuit;
@@ -55,12 +55,16 @@ public class Circuit implements Noeud, Subject {
 
     public void ajouterNoeud(Object element) {
         //on veut garder les entrees separement
-        if (element instanceof Entree)
+        if (element instanceof Entree){
             entrees.add((Entree)element);
-        else if (element instanceof Sortie)
+            elements.add(element);
+        }
+        else if (element instanceof Sortie){
             sorties.add((Sortie)element);
+            elements.add(element);
+        }
         else
-        elements.add((Noeud)element);
+        elements.add(element);
         notifier();
     }
 

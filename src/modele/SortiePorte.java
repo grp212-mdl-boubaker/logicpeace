@@ -39,9 +39,13 @@ public class SortiePorte  extends Source {
 
 
 
+   
+    public String afficher() {
+        return "SortiePorte{" + "nom=" + nom + ", lien=" + destination + '}';
+    }
     @Override
     public String toString() {
-        return "SortiePorte{" + "nom=" + nom + ", lien=" + destination + '}';
+        return nom;
     }
 
     @Override
