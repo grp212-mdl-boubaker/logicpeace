@@ -73,6 +73,7 @@ public abstract class Porte implements Noeud {
         return sp;
     }
     public void ajouterSortie(SortiePorte sortiePorte){
+        sortie = sortiePorte;
         sortiePorte.porte = this;
     }
     public SortiePorte getSortie(){
