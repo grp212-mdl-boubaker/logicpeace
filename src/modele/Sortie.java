@@ -47,7 +47,10 @@ public class Sortie  extends Destination {
     }
 
     @Override
-    public String toString() {
+    public String toString(){
+        return nom;
+    }
+    public String afficher() {
         return "Sortie{" + "nom=" + nom + ", lien=" + source + '}';
     }
 

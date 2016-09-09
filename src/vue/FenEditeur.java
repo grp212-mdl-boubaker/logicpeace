@@ -6,16 +6,13 @@
 package vue;
 
 import java.util.List;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import modele.Circuit;
 import modele.Destination;
 import modele.Editeur;
-import modele.Entree;
-import modele.Noeud;
+import modele.EntreePorte;
 import modele.Observer;
-import modele.NamedObject;
 import modele.Porte;
 import modele.Sortie;
 import modele.Source;
@@ -30,9 +27,9 @@ public class FenEditeur extends javax.swing.JFrame implements Observer{
     private Circuit racine;
     static boolean lock = false;
     TableVerite tv;
-    DefaultComboBoxModel<Pair> comboModel;
-    DefaultListModel<Pair> listModelSources;
-    DefaultListModel<Pair> listModelConnectedSources; 
+    DefaultComboBoxModel<Destination> comboModel;
+    DefaultListModel<Source> listModelSources;
+    DefaultListModel<Source> listModelConnectedSources; 
     ComboLsnr lsnr;
     /**
      * Creates new form FenEditeur
@@ -64,11 +61,13 @@ public class FenEditeur extends javax.swing.JFrame implements Observer{
     }
     private void updateInterface(){
         //preserver selected item
-        Pair selectedPair = (Pair)comboModel.getSelectedItem();
+        Destination selectedDest = (Destination)comboModel.getSelectedItem();
         //pendant update desactiver combo listener
         jComboBox1.removeActionListener(lsnr);
         
         List lst = racine.getElements();
+        lst.addAll(racine.getEntrees());
+        lst.addAll(racine.getSorties());
         listModelSources.removeAllElements();
         comboModel.removeAllElements();
         listModelConnectedSources.removeAllElements();
@@ -76,39 +75,36 @@ public class FenEditeur extends javax.swing.JFrame implements Observer{
         {
             if (node instanceof Porte)
             {
-                List<NamedObject> list = ((Porte)node).getEntrees();
+                List<EntreePorte> list = ((Porte)node).getEntrees();
                 //ajout des entrees
-                for (NamedObject dest:list)
+                for (EntreePorte dest:list)
                 {
-                comboModel.addElement(new Pair(dest));
+                comboModel.addElement(dest);
                 }
                 //ajout de sortie
-                listModelSources.addElement(new Pair(((Porte)node).getSortie()));
+                listModelSources.addElement(((Porte)node).getSortie());
             }
             else if (node instanceof Sortie)
-                comboModel.addElement(new Pair((NamedObject)node));
+                comboModel.addElement((Destination)node);
             else if (node instanceof Source)
             {
                 Source sc = (Source)node;
-                listModelSources.addElement(new Pair(sc));
+                listModelSources.addElement(sc);
                     
             }
                 
         }
         
         //update jlist2
-        if (selectedPair != null)
+        if (selectedDest != null)
         {
-            comboModel.setSelectedItem(selectedPair);
+            comboModel.setSelectedItem(selectedDest);
         
        
-        Pair pair = (Pair)selectedPair;
         //on sait que c'est une destination
-        Destination dest = (Destination)pair.getObject();
-        if (dest.getSource() != null)
+        if (selectedDest.getSource() != null)
         {
-            Pair p = new Pair(dest.getSource());
-            listModelConnectedSources.addElement(p);
+            listModelConnectedSources.addElement(selectedDest.getSource());
         }
         }
     //recupere listener    
@@ -367,21 +363,20 @@ public class FenEditeur extends javax.swing.JFrame implements Observer{
 
     private void btnDisconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisconnectActionPerformed
         // TODO add your handling code here:
-            Pair pair = (Pair)comboModel.getSelectedItem();
+            Destination dest = (Destination)comboModel.getSelectedItem();
             int index = jList2.getSelectedIndex();
-            Pair pSrc = listModelConnectedSources.elementAt(index);
-            Source src = (Source)pSrc.getObject();
+            Source src = listModelConnectedSources.elementAt(index);
             String sourceNom = src.getNom();
-            String destNom = pair.getObject().getNom();
+            String destNom = dest.getNom();
             racine.delier(sourceNom, destNom);
     }//GEN-LAST:event_btnDisconnectActionPerformed
 
     private void btnConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConnectActionPerformed
         // TODO add your handling code here:
-        Pair pair = (Pair)comboModel.getSelectedItem();
+            Destination dest = (Destination)comboModel.getSelectedItem();
             int index = jList1.getSelectedIndex();
             String sourceNom = listModelSources.getElementAt(index).toString();
-            String destNom = pair.toString();
+            String destNom = dest.toString();
             racine.lier(sourceNom, destNom);
     }//GEN-LAST:event_btnConnectActionPerformed
 

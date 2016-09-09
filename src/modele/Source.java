@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author shahin.behrooz@gmail.com
  */
-public abstract class Source implements NamedObject{
+public abstract class Source{
     private int value;
     ArrayList<Destination> destinations = new ArrayList<Destination>();
     public void addDestination(Destination dest){

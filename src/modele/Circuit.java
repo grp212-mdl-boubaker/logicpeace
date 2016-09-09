@@ -18,7 +18,7 @@ public class Circuit implements Noeud, Subject {
 
     private static int nombreCircuit = 0;
     private String nom;
-    private List elements = new ArrayList<Noeud>();
+    private List<Noeud> elements = new ArrayList<Noeud>();
     private ArrayList<Observer> lstObserver = new ArrayList<Observer>(); 
     private boolean modifie = false;
     static Circuit circuit;
@@ -59,7 +59,8 @@ public class Circuit implements Noeud, Subject {
             entrees.add((Entree)element);
         else if (element instanceof Sortie)
             sorties.add((Sortie)element);
-        elements.add(element);
+        else
+        elements.add((Noeud)element);
         notifier();
     }
 

@@ -9,7 +9,7 @@ package modele;
  *
  * @author shahin.behrooz@gmail.com
  */
-public abstract class Destination implements NamedObject{
+public abstract class Destination{
     private Source source;    
     public void setSource(Source src){
         source = src;
