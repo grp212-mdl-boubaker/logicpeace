@@ -98,6 +98,9 @@ public class Circuit implements Noeud, Subject {
                 porte.ajouterSortie(sortiePorte);
                 dic.put(sortiePorte.getNom(),  sortiePorte);
                 //ajouterNoeud(sortiePorte);
+                entreePorte1.setPorte(porte);
+                entreePorte2.setPorte(porte);
+
                 break;
             case "AND":
                 porte = new AND(nom);
@@ -105,6 +108,8 @@ public class Circuit implements Noeud, Subject {
                 entreePorte2 = porte.creerEntreePorte();
                 sortiePorte = porte.creerSortiePorte();
                 porte.ajouterEntree(entreePorte1,0);
+                entreePorte1.setPorte(porte);
+                entreePorte2.setPorte(porte);
                 dic.put(entreePorte1.getNom(),  entreePorte1);
 //                ajouterNoeud(entreePorte1);
                 porte.ajouterEntree(entreePorte2,1);
@@ -118,6 +123,7 @@ public class Circuit implements Noeud, Subject {
                 porte = new NOT(nom);
                 entreePorte1 = porte.creerEntreePorte();
                 sortiePorte = porte.creerSortiePorte();
+                entreePorte1.setPorte(porte);
                 porte.ajouterEntree(entreePorte1,0);
                 dic.put(entreePorte1.getNom(), entreePorte1);
 //                ajouterNoeud(entreePorte1);
@@ -177,6 +183,7 @@ public class Circuit implements Noeud, Subject {
         Source src = getSource(noeud1, noeud2);
         if (dest == null || src == null)
             throw new IllegalArgumentException("Les noeuds ne sont pas liables.");
+        
         dest.setSource(src);
         }
         notifier();

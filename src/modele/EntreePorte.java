@@ -12,6 +12,7 @@ package modele;
 public class EntreePorte  extends Destination {
     private static int nombreEntreePorte=0;
     private String nom;
+    private Porte porte;
     
     public EntreePorte(String nom) {
         this.nom = nom;
@@ -44,10 +45,15 @@ public class EntreePorte  extends Destination {
 //            throw new IllegalArgumentException("faire le lien n'est pas possible.");
 //        }
 //    }
- 
+    public void setPorte(Porte porte){
+        this.porte = porte;
+    }
+    public Porte getPorte(){
+        return porte;
+    }
     @Override
     public String toString() {
-        return  nom;
+        return "EntreePorte{" + "nom=" + nom + " " + porte.getClass().getSimpleName() + '}';//return  nom;
     }
     
     public String afficher() {

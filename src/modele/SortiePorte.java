@@ -45,7 +45,7 @@ public class SortiePorte  extends Source {
     }
     @Override
     public String toString() {
-        return nom;
+        return "SortiePorte{" + "nom=" + nom + " " + porte.getClass().getSimpleName()+ '}';//return nom;
     }
 
     @Override

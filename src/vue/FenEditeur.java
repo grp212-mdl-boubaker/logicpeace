@@ -374,9 +374,11 @@ public class FenEditeur extends javax.swing.JFrame implements Observer{
     private void btnConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConnectActionPerformed
         // TODO add your handling code here:
             Destination dest = (Destination)comboModel.getSelectedItem();
+            if (dest.getSource() != null)//deja connecte
+                return;
             int index = jList1.getSelectedIndex();
-            String sourceNom = listModelSources.getElementAt(index).toString();
-            String destNom = dest.toString();
+            String sourceNom = listModelSources.getElementAt(index).getNom();
+            String destNom = dest.getNom();
             racine.lier(sourceNom, destNom);
     }//GEN-LAST:event_btnConnectActionPerformed
 
